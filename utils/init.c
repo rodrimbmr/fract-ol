@@ -6,7 +6,7 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:45:26 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/04/01 13:03:55 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:27:42 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ static void	events_init(t_fractal *fractal)
 			KeyPressMask,
 			key_handler,
 			fractal);
-/*	mlx_hook(fractal->mlx_window,
-			 ButtonPress,
-			 ButtonPressMask,
-			 mouse_handler,
-			 fractal);
 	mlx_hook(fractal->mlx_window,
-			 DestroyNotify,
-			 StructureNotifyMask,
-			 close_handler,
-			 fractal);*/
+			ButtonPress,
+			ButtonPressMask,
+			mouse_handler,
+			fractal);
+	mlx_hook(fractal->mlx_window,
+			DestroyNotify,
+			StructureNotifyMask,
+			close_handler,
+			fractal);
+	mlx_hook(fractal->mlx_window,
+			MotionNotify,
+			PointerMotionMask,
+			julia_track,
+			fractal);
 }
 
 void	ft_fractal_init(t_fractal *fractal)

@@ -6,7 +6,7 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:43:46 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/04/01 16:13:31 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:32:24 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ t_complex	square_complex(t_complex z);
 
 //events
 int	key_handler(int keysym, t_fractal *fractal);
+int	mouse_handler(int button, int x, int y, t_fractal *fractal);
+int	julia_track(int x, int y, t_fractal *fractal);
 
 //closing
 int	close_handler(t_fractal *fractal);

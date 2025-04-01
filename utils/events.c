@@ -6,7 +6,7 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 04:18:14 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/04/01 13:31:42 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:30:00 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,13 @@ int	mouse_handler(int button, int x, int y, t_fractal *fractal)
 	return 0;
 }
 
+int	julia_track(int x, int y, t_fractal *fractal)
+{
+	if (!ft_strncmp(fractal->name, "julia", 5))
+	{
+		fractal->julia_x = (map(x, -2, +2, 0, WIDTH) * fractal->zoom) + fractal->shift_x;
+		fractal->julia_y = (map(y, +2, -2, 0, HEIGHT) * fractal->zoom) + fractal->shift_y;
+		fractal_render(fractal);
+	}
+	return 0;
+}
