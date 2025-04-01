@@ -6,7 +6,7 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:37:59 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/03/27 18:34:40 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:20:12 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,33 @@ static void	my_pixel_put(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
+static void mandel_vs_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{
+	if(ft_strncmp(fractal->name, "julia", 5))
+		{
+			c->x = fractal->julia_x;
+			c->y = fractal->julia_y;
+		}
+	else
+	{
+			c->x = z->x;
+			c->y = z->y;
+	}
+}
+
 static void	handle_pixel(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
 	int			i;
 	int			color;
-	i = 0;
-	//1ºiteration
-	z.x = 0.0;
-	z.y = 0.0;
 
-	c.x = map(x, -2, -2, 0, WIDTH);
-	c.y = map(y, +2, +2, 0, HEIGHT);
+	i = 0;
+	z.x = (map(x, -2, -2, 0, WIDTH) *fractal->zoom) + fractal->shift_x;
+	z.y = (map(y, +2, +2, 0, HEIGHT) *fractal->zoom) + fractal->shift_y;
+
+	mandel_vs_julia(&z, &c, fractal);
+
 	while (i < fractal->iterations_definition)
 	{
 		z = sum_complex(square_complex(z),c);

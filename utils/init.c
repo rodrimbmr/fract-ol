@@ -6,7 +6,7 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:45:26 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/03/27 18:26:20 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 13:03:55 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,32 @@ static void	malloc_error(void)
 	perror("malloc error");
 	exit(EXIT_FAILURE);
 }
-void	data_init(t_fractal *fractal)
+static void	data_init(t_fractal *fractal)
 {
 	fractal->escape_value = 4;
 	fractal->iterations_definition = 42;
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+	fractal->zoom = 1.0;
+}
+
+static void	events_init(t_fractal *fractal)
+{
+	mlx_hook(fractal->mlx_window,
+			KeyPress,
+			KeyPressMask,
+			key_handler,
+			fractal);
+/*	mlx_hook(fractal->mlx_window,
+			 ButtonPress,
+			 ButtonPressMask,
+			 mouse_handler,
+			 fractal);
+	mlx_hook(fractal->mlx_window,
+			 DestroyNotify,
+			 StructureNotifyMask,
+			 close_handler,
+			 fractal);*/
 }
 
 void	ft_fractal_init(t_fractal *fractal)
@@ -48,6 +70,7 @@ void	ft_fractal_init(t_fractal *fractal)
 												&fractal->img.bpp,
 												&fractal->img.line_len,
 												&fractal->img.endian);
+	events_init(fractal);
 	data_init(fractal);
 }
 

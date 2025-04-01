@@ -6,12 +6,14 @@
 /*   By: rmonfort <rmonfort@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:43:46 by rmonfort          #+#    #+#             */
-/*   Updated: 2025/03/27 18:30:40 by rmonfort         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:13:31 by rmonfort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef		FRACTOL_H
 # define	FRACTOL_H
+# include <X11/X.h>
+#include <X11/keysym.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -66,20 +68,31 @@ typedef	struct  s_fractal
 	t_img	img;
 	double	escape_value;
 	int		iterations_definition;
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
+	double	julia_x;
+	double	julia_y;
 }				t_fractal;
+
+//strutils
+double	atodbl(char *s);
 
 //init
 void	ft_fractal_init(t_fractal *fractal);
-void	data_init(t_fractal *fractal);
 
 //render
-static void	handle_pixel(int x, int y, t_fractal *fractal);
 void	fractal_render(t_fractal *fractal);
-static void	my_pixel_put(int x, int y, t_img *img, int color);
 
 //math
 double	map(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
+
+//events
+int	key_handler(int keysym, t_fractal *fractal);
+
+//closing
+int	close_handler(t_fractal *fractal);
 
 #endif
